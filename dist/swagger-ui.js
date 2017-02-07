@@ -6744,6 +6744,7 @@ var Operation = module.exports = function (parent, scheme, operationId, httpMeth
   this.useJQuery = parent.useJQuery;
   this.jqueryAjaxCache = parent.jqueryAjaxCache;
   this.enableCookies = parent.enableCookies;
+  this.port = args.port || '80';
 
   var key;
 
@@ -7256,7 +7257,11 @@ Operation.prototype.urlify = function (args, maskPasswords) {
 
     }
   }
-  var url = this.scheme + '://' + this.host;
+
+  var url = this.scheme + '://' + this.host
+  if (this.port !== 'undefined' && this.port !== '80') {
+	url = this.scheme + '://' + this.host + ":" + this.port;
+  }
 
   if (this.basePath !== '/') {
     url += this.basePath;
